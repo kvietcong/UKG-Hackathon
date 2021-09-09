@@ -1,6 +1,6 @@
 import { Context } from "../Context";
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import useLobby from "../hooks/useLobby";
 import { addPlayerToLobby } from "../utils/addPlayerToLobby";
 
@@ -11,7 +11,8 @@ function nameAlreadyExistsInLobby(name, lobby){
 
 const SomeOtherPage = () => {
     const { user } = useContext(Context);
-    
+    const history = useHistory()
+
     const {lobbyID} = useParams()
     const lobby = useLobby(lobbyID)
     useEffect(()=>{console.log(lobby)},[lobby])
@@ -28,6 +29,7 @@ const SomeOtherPage = () => {
                     <button disabled={chosenNameIsTaken} onClick={()=> {
                         console.log(`Entered game ${lobbyID} with name ${name}`)
                         addPlayerToLobby(name, lobbyID)
+                        history.push(`/${lobbyID}/lobby`)
                     }}>Submit Name</button>
                     {chosenNameIsTaken && <div>Name is taken, choose another!</div>}
                 </div>
