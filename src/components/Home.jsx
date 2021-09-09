@@ -11,7 +11,7 @@ function handleJoinGame(roomCode, history) {
 
 const Home = () => {
     const { user } = useContext(Context);
-    const [roomCode, setRoomCode] = useState("")
+    const [roomCode, setRoomCode] = useState("3Chx4mN0R7pglAKUtEh7")
     const history = useHistory()
 
     return (
@@ -19,7 +19,7 @@ const Home = () => {
             <div className="card">
                 <div>Enter code:</div>
                 <div>
-                    <input value={roomCode} onChange={(e)=>setRoomCode(e.currentTarget.value)}/>
+                    <input value={roomCode} onChange={(e)=>setRoomCode(e.currentTarget.value)} />
                     <button onClick={()=> {
                         handleJoinGame(roomCode, history)
                     }}>Join Game</button>
