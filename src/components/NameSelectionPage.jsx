@@ -1,24 +1,27 @@
 import { Context } from "../Context";
 import React, { useContext, useState } from "react";
-import { useParams } from "react-router";
+import "./Home.css"
 
-const SomeOtherPage = () => {
+function handleSelectName(roomCode) {
+    // Do stuff with roomCode
+    console.log(roomCode)
+}
+
+const Home = () => {
     const { user } = useContext(Context);
-    const {id} = useParams()
     const [name, setName] = useState("")
 
     return (
         <main className="home">
             <div className="card">
-                Joining room "{id}"
                 <div>Enter your name:</div>
                 <input value={name} onChange={(e)=>setName(e.currentTarget.value)}/>
                 <button onClick={()=> {
-                    console.log(`Entered game ${id} with name ${name}`)
-                }}>Submit Name</button>
+                    handleSelectName(roomCode)
+                }}>Join Game</button>
             </div>
         </main>
     );
 };
 
-export default SomeOtherPage;
+export default Home;

@@ -7,7 +7,7 @@ const ContextProvider = props => {
     const [ user, setUser ] = useState("Default");
 
     return (
-        <Context.Provider value={{user}}>
+        <Context.Provider value={{user, setUser}}>
             {props.children}
         </Context.Provider>
     );
