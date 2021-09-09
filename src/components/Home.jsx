@@ -6,7 +6,9 @@ const Home = () => {
 
     return (
         <main className="home">
-            <h1>Hello WORLD!</h1>
+            <button>Create a new Game & Copy Link</button>
+            <div></div>
+            <input />
         </main>
     );
 };
