@@ -1,5 +1,3 @@
-import { Context } from "../Context";
-import React, { useContext } from "react";
 import useLobby from "../hooks/useLobby";
 
 const Test = () => {

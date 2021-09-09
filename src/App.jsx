@@ -6,6 +6,8 @@ import Home from "./components/Home";
 import Test from "./components/Test";
 import SomeOtherPage from "./components/SomeOtherPage";
 import EndingScreen from "./components/EndingScreen"
+import Lobby from "./components/LobbyPage";
+import DecisionsList from "./components/DecisionListPage";
 
 function App() {
     return (
@@ -15,8 +17,10 @@ function App() {
                     <Switch>
                         <Route exact path="/ending" component={EndingScreen}/>
                         <Route exact path="/" component={Home}/>
-                        <Route exact path="/Test" component={Test}/>
-                        <Route exact path="/:id" component={SomeOtherPage}/>                    
+                        <Route exact path="/Test" component={Test}/>               
+                        <Route exact path="/:id" component={SomeOtherPage}/>
+                        <Route exact path="/:id/lobby" component={Lobby}/>
+                        <Route exact path="/:id/game" component={DecisionsList}/>
                     </Switch>
                 </Router>
             </ContextProvider>
