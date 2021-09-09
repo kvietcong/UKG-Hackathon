@@ -9,16 +9,16 @@ function handleStartGame(roomCode, history) {
 const Lobby = () => {
     const { user } = useContext(Context);
     const [playerList, setPlayerList] = useState([])
-    const {id} = useParams()
+    const {lobbyID} = useParams()
     const history = useHistory()    
 
     return (
         <main className="player-list">
-            <h1>Lobby {id}</h1>
+            <h1>Lobby {lobbyID}</h1>
             <ol>
                 {playerList.map(player => <li>{player}</li>)}
             </ol>
-            <button onClick={() => {handleStartGame(id, history)}}>Start Game</button>
+            <button onClick={() => {handleStartGame(lobbyID, history)}}>Start Game</button>
         </main>
     );
 };

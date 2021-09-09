@@ -18,9 +18,9 @@ function App() {
                         <Route exact path="/ending" component={EndingScreen}/>
                         <Route exact path="/" component={Home}/>
                         <Route exact path="/Test" component={Test}/>               
-                        <Route exact path="/:id" component={SomeOtherPage}/>
-                        <Route exact path="/:id/lobby" component={Lobby}/>
-                        <Route exact path="/:id/game" component={DecisionsList}/>
+                        <Route exact path="/:lobbyID" component={SomeOtherPage}/>
+                        <Route exact path="/:lobbyID/lobby" component={Lobby}/>
+                        <Route exact path="/:lobbyID/game" component={DecisionsList}/>
                     </Switch>
                 </Router>
             </ContextProvider>
