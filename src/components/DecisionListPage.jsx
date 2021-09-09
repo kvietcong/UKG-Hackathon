@@ -15,7 +15,7 @@ const DecisionsList = () => {
             <h1>You ({user})</h1>
             <ul>
                 {playerList.map(player => 
-                        <li>vs. {player} {getMyScore(player)} {getOtherScore(player)} <button>COOPERATE</button><button>CHEAT</button> </li>
+                        <li key={player}>vs. {player} {getMyScore(player)} {getOtherScore(player)} <button>COOPERATE</button><button>CHEAT</button> </li>
                 )}
             </ul>
             <button>Submit</button>
