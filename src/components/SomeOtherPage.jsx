@@ -1,22 +1,38 @@
 import { Context } from "../Context";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
+import useLobby from "../hooks/useLobby";
+import { addPlayerToLobby } from "../utils/addPlayerToLobby";
+
+function nameAlreadyExistsInLobby(name, lobby){
+    console.log(lobby)
+    return lobby.players? lobby.players.includes(name) : false
+}
 
 const SomeOtherPage = () => {
     const { user } = useContext(Context);
-    const {id} = useParams()
+    
+    const {lobbyID} = useParams()
+    const lobby = useLobby(lobbyID)
+    useEffect(()=>{console.log(lobby)},[lobby])
     const [name, setName] = useState("")
+    const chosenNameIsTaken = nameAlreadyExistsInLobby(name, lobby)
 
     return (
         <main className="home">
-            <div className="card">
-                Joining room "{id}"
-                <div>Enter your name:</div>
-                <input value={name} onChange={(e)=>setName(e.currentTarget.value)}/>
-                <button onClick={()=> {
-                    console.log(`Entered game ${id} with name ${name}`)
-                }}>Submit Name</button>
-            </div>
+            {lobby?
+                <div className="card">
+                    Joining room "{lobbyID}"
+                    <div>Enter your name:</div>
+                    <input value={name} onChange={(e)=>setName(e.currentTarget.value)}/>
+                    <button disabled={chosenNameIsTaken} onClick={()=> {
+                        console.log(`Entered game ${lobbyID} with name ${name}`)
+                        addPlayerToLobby(name, lobbyID)
+                    }}>Submit Name</button>
+                    {chosenNameIsTaken && <div>Name is taken, choose another!</div>}
+                </div>
+            : <div>Loading...</div>
+            }
         </main>
     );
 };
