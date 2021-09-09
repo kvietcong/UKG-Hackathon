@@ -1,2 +1,2 @@
-# UKG-Hackathon
-Team Building Game
+# UKG-Hackathon Project
+Team Builder Web Game
