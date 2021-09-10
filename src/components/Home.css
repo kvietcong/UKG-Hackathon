@@ -5,11 +5,38 @@
 }
 
 .card {
-    border-radius: 1rem;
+    /* border-radius: 1rem;
     border-color: lightgray;
-    border-style: solid;
+    border-style: solid; */
     padding: 5rem;
     text-align: center;
     display: flex;
     flex-direction: column;
+    border-radius: 50px;
+    border-radius: 50px;
+    background: #d3d3d3;
+    box-shadow:  20px 20px 60px #b3b3b3,
+                 -20px -20px 60px #f3f3f3;
+    /* box-shadow: 1rem 1rem lightgray */
+}
+
+#roomCodeInput {
+  border-radius: 5px;
+background: #d3d3d3;
+box-shadow: inset 20px 20px 60px #b3b3b3,
+            inset -20px -20px 60px #f3f3f3;
+}
+
+#joinGameBtn{
+  border-radius: 5px;
+  background: linear-gradient(145deg, #e2e2e2, #bebebe);
+  box-shadow:  20px 20px 60px #b3b3b3,
+               -20px -20px 60px #f3f3f3;
+}
+
+#createGameBtn {
+  border-radius: 5px;
+  background: linear-gradient(145deg, #e2e2e2, #bebebe);
+  box-shadow:  20px 20px 60px #b3b3b3,
+               -20px -20px 60px #f3f3f3;
 }

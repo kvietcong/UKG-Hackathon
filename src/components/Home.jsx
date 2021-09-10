@@ -17,14 +17,14 @@ const Home = () => {
     return (
         <main className="home">
             <div className="card">
-                <div>Enter code:</div>
+                <div>Enter code 📝:</div>
                 <div>
-                    <input value={roomCode} onChange={(e)=>setRoomCode(e.currentTarget.value)} />
-                    <button onClick={()=> {
+                    <input id="roomCodeInput" value={roomCode} onChange={(e)=>setRoomCode(e.currentTarget.value)} />
+                    <button id="joinGameBtn" onClick={()=> {
                         handleJoinGame(roomCode, history)
-                    }}>Join Game</button>
+                    }} >Join Game</button>
                 </div>
-                <button onClick={()=>console.log("Tried to create new game")}>Create a new Game & Copy Link</button>
+                <button id="createGameBtn" onClick={()=>console.log("Tried to create new game")}>Create a new Game & Copy Link</button>
             </div>
         </main>
     );
