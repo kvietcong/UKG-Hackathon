@@ -52,18 +52,18 @@ const DecisionsList = () => {
         }
 
         return <tr key={player}>
-            <td>{player}</td> 
-            <td>{getMyScore(player)}</td> 
+            <td>{player}</td>
+            <td>{getMyScore(player)}</td>
             <td>{getOtherScore(player)}</td>
-            <button class="decisionButton" onClick={() => handleChoice(player, "COOPERATE")} style={{backgroundColor: choices[player] == "COOPERATE" && "lightgreen"}}>🤝</button>
-            <button class="decisionButton" onClick={() => handleChoice(player, "CHEAT")} style={{backgroundColor: choices[player] == "CHEAT" && "lightcoral"}}>🦹‍♂️</button> 
+            <button class="decisionButton" onClick={() => handleChoice(player, "COOPERATE")} style={{backgroundColor: choices[player] === "COOPERATE" && "lightgreen"}}>🤝</button>
+            <button class="decisionButton" onClick={() => handleChoice(player, "CHEAT")} style={{backgroundColor: choices[player] === "CHEAT" && "lightcoral"}}>🦹‍♂️</button>
         </tr>
     }
 
     return (
         <main className="home">
             <div class="card">
-                <h1 style={{margin: 0}}>Round {lobby?.rounds?.length ?? 1} 🔎</h1>
+                <h1 style={{margin: 0}}>Round {lobby?.rounds?.length + 1 ?? 1} 🔎</h1>
                 <h2>You are {user} with {lobby ? getPoints(lobby)[user] : "(Loading)"} Points</h2>
                 <table>
                     <th>{/* Empty */}</th>
