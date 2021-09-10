@@ -3,10 +3,25 @@ import React, { useContext, useState } from "react";
 import "./Home.css"
 import { useHistory } from "react-router";
 
+import { db } from "../config/firebase";
+import { collection, addDoc } from "firebase/firestore"; 
+
 function handleJoinGame(roomCode, history) {
     // Do stuff with roomCode
     console.log("Joining room:"+ roomCode)
     history.push(`/${roomCode}`)
+}
+
+async function createNewLobby() {
+    // Add a new document with a generated id.
+    const docRef = await addDoc(collection(db, "lobbies"), {
+        hasStarted: false,
+        maxRounds: 5,
+        players: [],
+        rounds: []
+    });
+
+    return docRef.id
 }
 
 const Home = () => {
@@ -27,7 +42,7 @@ const Home = () => {
                     }}>Join Game</button>
                 </div>
                 <b>or</b>
-                <button onClick={()=>console.log("Tried to create new game")}>Create a new Game & Copy Link</button>
+                <button onClick={() => createNewLobby().then(id => setRoomCode(id))}>Create a New Game (enters ID in box)</button>
             </div>
         </main>
     );
