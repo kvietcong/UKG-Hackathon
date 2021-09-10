@@ -48,15 +48,15 @@ const DecisionsList = () => {
 
     function createDecisionRow (player) {
         if(player === user) {
-            return <br/>
+            return null;
         }
 
         return <tr key={player}>
             <td>{player}</td>
             <td>{getMyScore(player)}</td>
             <td>{getOtherScore(player)}</td>
-            <button class="decisionButton" onClick={() => handleChoice(player, "COOPERATE")}>🤝</button>
-            <button class="decisionButton" onClick={() => handleChoice(player, "CHEAT")}>🦹‍♂️</button>
+            <button class="decisionButton" onClick={() => handleChoice(player, "COOPERATE")} style={{backgroundColor: choices[player] === "COOPERATE" && "lightgreen"}}>🤝</button>
+            <button class="decisionButton" onClick={() => handleChoice(player, "CHEAT")} style={{backgroundColor: choices[player] === "CHEAT" && "lightcoral"}}>🦹‍♂️</button>
         </tr>
     }
 
