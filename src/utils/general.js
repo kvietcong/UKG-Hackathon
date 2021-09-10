@@ -53,7 +53,7 @@ const getVsPoints = (lobby, user1, user2) => {
 const getSelectionStatuses = lobby => {
     const {players, rounds} = lobby;
     if (rounds.length === 0) return {selected: lobby.players, notSelected: []};
-    const round = rounds.at(-1);
+    const round = rounds[rounds.length - 1];
     const playersReady = Object.keys(round);
     const playersNotReady = players.filter(player =>
         !playersReady.includes(player));
