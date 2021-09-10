@@ -1,41 +1,54 @@
-const calculatePointsForRound = (round) => {
+const calculatePointsForMoves = (move1, move2) => {
+    if (move1 === "CHEAT") {
+        return move2 === "CHEAT" ? 0 : 3;
+    } else {
+        return move2 === "CHEAT" ? -1 : 2;
+    }
+};
+
+const calculatePointsForRound = round => {
     const roundPoints = {};
     for (const player in round) {
         const moves = round[player];
         let points = 0;
         for (const otherPlayer in moves) {
-            const move = moves[otherPlayer];
+            const move1 = moves[otherPlayer];
 
             // This means that the other player hasn't made a move against current player
             if (!round[otherPlayer]) continue;
-            const otherMove = round[otherPlayer][player];
-            if (!otherMove) continue;
-
-            if (move === "CHEAT") {
-                points += otherMove === "CHEAT" ? 0 : 2;
-            } else {
-                points += otherMove === "CHEAT" ? -1 : 4;
-            }
+            const move2 = round[otherPlayer][player];
+            if (!move2) continue;
+            points += calculatePointsForMoves(move1, move2);
         }
         roundPoints[player] = points
     }
     return roundPoints;
 };
 
-const calculatePoints = rounds => {
+const getPoints = ({players, rounds}) => {
     const allPoints = {};
+    for (const player in players) allPoints[player] = 0;
     for (const round of rounds) {
         const roundPoints = calculatePointsForRound(round);
         for (const player in roundPoints) {
-            if (!allPoints[player]) allPoints[player] = 0;
             allPoints[player] = allPoints[player] + roundPoints[player];
         }
     }
     return allPoints;
 };
 
-// Returns total points of all all
-const getPoints = lobby => calculatePoints(lobby.rounds);
+const getVsPoints = (lobby, user1, user2) => {
+    const rounds = lobby.rounds;
+    let points = 0;
+    for (const round of rounds) {
+        const move1 = round?.[user1][user2];
+        if (!move1) continue;
+        const move2 = round?.[user2][user1];
+        if (!move2) continue;
+        points += calculatePointsForMoves(move1, move2);
+    }
+    return points;
+};
 
 const getSelectionStatuses = lobby => {
     const {players, rounds} = lobby;
@@ -60,8 +73,8 @@ const lazyLoad = (lobby, fun) => lobby ? JSON.stringify(fun(lobby)) : "Loading";
 
 export {
     calculatePointsForRound,
-    calculatePoints,
     getPoints,
+    getVsPoints,
     getSelected,
     getNotSelected,
     isReadyForNextRound,

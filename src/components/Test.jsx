@@ -1,7 +1,7 @@
 import useLobby from "../hooks/useLobby";
 import { startLobby } from "../utils/startLobby";
 import { addChoices } from "../utils/addChoices";
-import { getPoints, getNotSelected, getSelected, isReadyForNextRound, hasPlayerSelected, lazyLoad } from "../utils/general";
+import { getPoints, getNotSelected, getSelected, isReadyForNextRound, hasPlayerSelected, lazyLoad, getVsPoints } from "../utils/general";
 import useLobbies from "../hooks/useLobbies";
 
 const testID = "3Chx4mN0R7pglAKUtEh7";
@@ -16,6 +16,13 @@ const Test = () => {
             <button onClick={() => console.log(getNotSelected(lobby))}>Log Players Not Selected</button>
             <button onClick={() => console.log(getSelected(lobby))}>Log Players Selected</button>
             <button onClick={() => console.log(isReadyForNextRound(lobby))}>Log Ready for Next Round</button>
+            <button onClick={() => console.log(getVsPoints(lobby,
+                document.getElementById("p1").value, document.getElementById("p2").value))}
+            >
+                Get Vs points
+                <input id="p1" type="text"/>
+                <input id="p2" type="text"/>
+            </button>
             <button onClick={() =>
                 addChoices("1", {2: "CHEAT", 3: "CHEAT"}, "3Chx4mN0R7pglAKUtEh7")}
             >
