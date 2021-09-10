@@ -18,11 +18,14 @@ const EndingScreen = () => {
     return (
         <main className="home">
             <div className="card">
-                Scores:
-                <div>
-                    {players ? players.map(player => <div>{player} | Hard-coded test score</div>) : <div></div>}
-                </div>
-
+                <b>That's all folks! 🎉</b>
+                <table>
+                    <tr>
+                        <th>Player</th>
+                        <th>Score</th>
+                    </tr>
+                    {players.map(player => <tr><td>{player}</td><td>SomeScore</td></tr>)}
+                </table>
                 <button>New Lobby</button>
             </div>
         </main>
