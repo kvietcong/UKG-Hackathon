@@ -11,7 +11,7 @@ const EndingScreen = () => {
     const lobby = useLobby("3Chx4mN0R7pglAKUtEh7")
 
     useEffect(() => {
-        setPlayers(lobby.players)
+        setPlayers(lobby ? lobby.players : [])
     }, [lobby])
 
     //Non-functional mockup
