@@ -5,11 +5,22 @@
 }
 
 .card {
-    border-radius: 1rem;
     border-color: lightgray;
+    border-radius: 1rem;
     border-style: solid;
+    border-width: 0.1rem;
+    box-shadow: 1rem 1rem rgb(153, 153, 255);
     padding: 5rem;
     text-align: center;
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+}
+
+#title{
+  margin-top: 0;
+}
+
+#letsPlayText{
+  color: rgb(153, 153, 255);
 }
