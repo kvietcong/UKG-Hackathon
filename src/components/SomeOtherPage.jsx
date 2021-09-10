@@ -6,7 +6,7 @@ import { addPlayerToLobby } from "../utils/addPlayerToLobby";
 
 function nameAlreadyExistsInLobby(name, lobby){
     console.log(lobby)
-    return lobby.players? lobby.players.includes(name) : false
+    return (lobby?.players) ? lobby.players.includes(name) : false
 }
 
 const SomeOtherPage = () => {
@@ -19,6 +19,7 @@ const SomeOtherPage = () => {
     const [name, setName] = useState("")
     const chosenNameIsTaken = nameAlreadyExistsInLobby(name, lobby)
 
+    // Need to change the conditional render from lobby to lobby == {}
     return (
         <main className="home">
             {lobby?
