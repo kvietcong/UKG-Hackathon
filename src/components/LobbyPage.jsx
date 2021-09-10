@@ -25,7 +25,7 @@ const Lobby = () => {
         <main className="player-list">
             <h1>Lobby {lobbyID}</h1>
             <button className="copy" id="copyURL" onClick={() =>
-                navigator.clipboard.writeText(window.location.href)}>Copy Lobby URL
+                navigator.clipboard.writeText(`https://ukg-hackathon.web.app/${lobbyID}`)}>Copy Lobby URL
             </button>
             <h2>Players</h2>
             <ul>{playerList.map(player =>

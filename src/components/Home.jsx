@@ -4,7 +4,7 @@ import "./Home.css"
 import { useHistory } from "react-router";
 
 import { db } from "../config/firebase";
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc } from "firebase/firestore";
 
 function handleJoinGame(roomCode, history) {
     // Do stuff with roomCode
@@ -26,7 +26,7 @@ async function createNewLobby() {
 
 const Home = () => {
     const { user } = useContext(Context);
-    const [roomCode, setRoomCode] = useState("3Chx4mN0R7pglAKUtEh7")
+    const [roomCode, setRoomCode] = useState("")
     const history = useHistory()
 
     return (
@@ -36,7 +36,7 @@ const Home = () => {
                 <h1 id="title">Deception 🕵️‍♂️</h1>
                 <b>Use room code:</b>
                 <div>
-                    <input value={roomCode} onChange={(e)=>setRoomCode(e.currentTarget.value)} />
+                    <input placeholder="Enter Room ID Here" value={roomCode} onChange={(e)=>setRoomCode(e.currentTarget.value)} />
                     <button onClick={()=> {
                         handleJoinGame(roomCode, history)
                     }}>Join Game</button>
