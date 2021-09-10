@@ -1,6 +1,9 @@
 import { Context } from "../Context";
 import React, { useContext, useState } from "react";
 
+/**
+ * The Main Game Page where decisions of CHEAT/COOPERATE are made each round
+ */
 const DecisionsList = () => {
     const { user, roundNum } = useContext(Context);
     const [playerList, setPlayerList] = useState(["A", "B"])
