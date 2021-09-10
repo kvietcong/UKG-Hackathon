@@ -41,9 +41,9 @@ const getVsPoints = (lobby, user1, user2) => {
     const rounds = lobby.rounds;
     let points = 0;
     for (const round of rounds) {
-        const move1 = round?.[user1][user2];
+        const move1 = round?.[user1]?.[user2];
         if (!move1) continue;
-        const move2 = round?.[user2][user1];
+        const move2 = round?.[user2]?.[user1];
         if (!move2) continue;
         points += calculatePointsForMoves(move1, move2);
     }
