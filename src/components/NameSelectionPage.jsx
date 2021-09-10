@@ -10,7 +10,7 @@ function nameAlreadyExistsInLobby(name, lobby){
 }
 
 const NameSelectionPage = () => {
-    const { user } = useContext(Context);
+    const { setUser } = useContext(Context);
     const history = useHistory()
 
     const {lobbyID} = useParams()
@@ -29,6 +29,7 @@ const NameSelectionPage = () => {
                     <input value={name} onChange={(e)=>setName(e.currentTarget.value)}/>
                     <button disabled={chosenNameIsTaken} onClick={()=> {
                         console.log(`Entered game ${lobbyID} with name ${name}`)
+                        setUser(name)
                         addPlayerToLobby(name, lobbyID)
                         history.push(`/${lobbyID}/lobby`)
                     }}>Submit Name</button>
