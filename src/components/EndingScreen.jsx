@@ -24,7 +24,7 @@ const EndingScreen = () => {
                         <th>Player</th>
                         <th>Score</th>
                     </tr>
-                    {players.map(player => <tr><td>{player}</td><td>SomeScore</td></tr>)}
+                    {players.map(player => <tr key={player}><td>{player}</td><td>SomeScore</td></tr>)}
                 </table>
                 <button>New Lobby</button>
             </div>
