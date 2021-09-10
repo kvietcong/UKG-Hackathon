@@ -21,7 +21,7 @@ const DecisionsList = () => {
             lobby.players.reduce((acc,curr)=> (acc[curr]="", acc),{}) : {}
         emptyChoices = {...emptyChoices, ...choices};
         setChoices(emptyChoices);
-    },[]);
+    }, []);
 
     function handleDecisionsSubmit() {
         if (Object.values(choices).indexOf("") >= 0) {
@@ -38,25 +38,25 @@ const DecisionsList = () => {
         setChoices(newChoices);
     }
 
-    function getMyScore(player, opponent) {
-        return (lobby ? getVsPoints(lobby, player, opponent) : 0)
+    function getMyScore(opponent) {
+        return (lobby ? getVsPoints(lobby, user, opponent) : 0)
     }
 
-    function getOtherScore(player, opponent) {
-        return (lobby ? getVsPoints(lobby, opponent, player) : 0)
+    function getOtherScore(opponent) {
+        return (lobby ? getVsPoints(lobby, opponent, user) : 0)
     }
 
-    function createDecisionRow (player) {
-        if(player === user) {
+    function createDecisionRow (opponent) {
+        if(opponent === user) {
             return null;
         }
 
-        return <tr key={player}>
-            <td>{player}</td>
-            <td>{getMyScore(player)}</td>
-            <td>{getOtherScore(player)}</td>
-            <button class="decisionButton" onClick={() => handleChoice(player, "COOPERATE")} style={{backgroundColor: choices[player] === "COOPERATE" && "lightgreen"}}>🤝</button>
-            <button class="decisionButton" onClick={() => handleChoice(player, "CHEAT")} style={{backgroundColor: choices[player] === "CHEAT" && "lightcoral"}}>🦹‍♂️</button>
+        return <tr key={opponent}>
+            <td>{opponent}</td>
+            <td>{getMyScore(opponent)}</td>
+            <td>{getOtherScore(opponent)}</td>
+            <button class="decisionButton" onClick={() => handleChoice(opponent, "COOPERATE")} style={{backgroundColor: choices[opponent] === "COOPERATE" && "lightgreen"}}>🤝</button>
+            <button class="decisionButton" onClick={() => handleChoice(opponent, "CHEAT")} style={{backgroundColor: choices[opponent] === "CHEAT" && "lightcoral"}}>🦹‍♂️</button>
         </tr>
     }
 

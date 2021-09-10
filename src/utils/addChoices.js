@@ -14,7 +14,8 @@ export async function addChoices(player, choices, lobbyID) {
     if (lobbyInfo.exists()) {
         const lobby = lobbyInfo.data();
         const currentRound = lobby.rounds.length
-            - isReadyForNextRound(lobby) ? 0 : 1;
+            - (isReadyForNextRound(lobby) ? 0 : 1);
+        console.log(currentRound, lobby.rounds.length, isReadyForNextRound(lobby));
         const newRounds = [...lobby.rounds];
 
         if (!newRounds[currentRound]) newRounds[currentRound] = {};
