@@ -1,6 +1,7 @@
 import { Context } from "../Context";
 import React, { useContext, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import useLobby from "../hooks/useLobby";
 
 function handleStartGame(roomCode, history) {
     history.push(`/${roomCode}/game`)
@@ -8,8 +9,9 @@ function handleStartGame(roomCode, history) {
 
 const Lobby = () => {
     const { user } = useContext(Context);
-    const [playerList, setPlayerList] = useState([])
     const {lobbyID} = useParams()
+    const lobby = useLobby(lobbyID)
+    const playerList = lobby?.players ?? []
     const history = useHistory()    
 
     return (
