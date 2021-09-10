@@ -2,8 +2,8 @@ import { db } from "../config/firebase";
 import { useState, useEffect } from "react";
 import { collection, doc, onSnapshot, setDoc, getDoc } from "firebase/firestore";
 
-const useLobby = (lobbyID) => {
-    const [ lobby, setLobby ] = useState({});
+const useLobby = (lobbyID, defaultRounds = 8) => {
+    const [ lobby, setLobby ] = useState();
     const [ exists, setExists ] = useState(false);
 
     useEffect(() => {
@@ -13,7 +13,7 @@ const useLobby = (lobbyID) => {
             const lobbyInfo = await getDoc(lobbyRef);
             if (!lobbyInfo.exists()) {
                 await setDoc(lobbyRef, {
-                    players: [], rounds: []
+                    hasStarted: false, players: [], rounds: [], maxRounds: 8
                 });
             }
             setExists(true);
@@ -21,7 +21,7 @@ const useLobby = (lobbyID) => {
         if (!exists) {
             seeExistAndCreate();
         } else {
-            const unsubscribe = onSnapshot(lobbyRef, (lobby) => {
+            const unsubscribe = onSnapshot(lobbyRef, lobby => {
                 setLobby(lobby.data());
             });
             return unsubscribe;

@@ -37,32 +37,34 @@ const calculatePoints = rounds => {
 // Returns total points of all all
 const getPoints = lobby => calculatePoints(lobby.rounds);
 
-const getPlayerStatuses = lobby => {
+const getSelectionStatuses = lobby => {
     const {players, rounds} = lobby;
-    const currentRound = rounds.at(-1);
-    const playersReady = Object.keys(currentRound);
+    if (rounds.length === 0) return {selected: lobby.players, notSelected: []};
+    const round = rounds.at(-1);
+    const playersReady = Object.keys(round);
     const playersNotReady = players.filter(player =>
         !playersReady.includes(player));
-    return {ready: playersReady, notReady: playersNotReady};
+    return {selected: playersReady, notSelected: playersNotReady};
 };
 
-const getReady = lobby => getPlayerStatuses(lobby).ready;
-const getNotReady = lobby => getPlayerStatuses(lobby).notReady;
+const getSelected = lobby => getSelectionStatuses(lobby).selected;
+const getNotSelected = lobby => getSelectionStatuses(lobby).notSelected;
 
-// NOT ZERO INDEXED.
-// If everyone has made their move, the round will be incremented here
-// Feel free to make this just return the rounds length and manual increment if
-// that is more convenient.
-const getRound = lobby => {
-    let round = lobby.rounds.length;
-    return getNotReady(lobby).length === 0 ? round + 1 : round;
-};
+const isReadyForNextRound = lobby => getNotSelected(lobby).length === 0;
+
+const hasPlayerSelected = (lobby, player) => getSelected(lobby).includes(player);
+
+// Just a shortcut to not have ternaries everywhere
+// Maybe make this more robust?
+const lazyLoad = (lobby, fun) => lobby ? JSON.stringify(fun(lobby)) : "Loading";
 
 export {
     calculatePointsForRound,
     calculatePoints,
     getPoints,
-    getReady,
-    getNotReady,
-    getRound,
+    getSelected,
+    getNotSelected,
+    isReadyForNextRound,
+    hasPlayerSelected,
+    lazyLoad,
 };
