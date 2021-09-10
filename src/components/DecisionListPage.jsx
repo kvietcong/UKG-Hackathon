@@ -49,6 +49,7 @@ const DecisionsList = () => {
             vs. {player} {getMyScore(player)} {getOtherScore(player)} 
             <button onClick={handleChoice(player, "COOPERATE")}>COOPERATE</button>
             <button onClick={handleChoice(player, "CHEAT")}>CHEAT</button> 
+            You plan to: {decisions[player]}
         </li>
     }
     return (
