@@ -27,7 +27,7 @@ const calculatePointsForRound = round => {
 
 const getPoints = ({players, rounds}) => {
     const allPoints = {};
-    for (const player in players) allPoints[player] = 0;
+    for (const player of players) allPoints[player] = 0;
     for (const round of rounds) {
         const roundPoints = calculatePointsForRound(round);
         for (const player in roundPoints) {

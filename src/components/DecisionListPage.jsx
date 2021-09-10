@@ -5,37 +5,35 @@ import { addChoices } from "../utils/addChoices";
 import { useParams } from "react-router-dom";
 import { getPoints, getVsPoints } from "../utils/general";
 
-let decisions = {}
 /**
  * The Main Game Page where decisions of CHEAT/COOPERATE are made each round
  */
 const DecisionsList = () => {
-    const {user, roundNum } = useContext(Context);
-    const {lobbyID} = useParams()
-    const [players, setPlayers] = useState([])
-    const [myChoices, setMyChoices] = useState({}) // {playerName: decisionTowardsPlayer}
-    //const [scores, setScores] = useState([])
-    const lobby = useLobby("3Chx4mN0R7pglAKUtEh7")
+    const { user } = useContext(Context);
+    const { lobbyID } = useParams();
+    const [choices, setChoices] = useState({}); // {playerName: decisionTowardsPlayer}
+    const lobby = useLobby(lobbyID);
 
     useEffect(()=>{
-        decisions = lobby ? lobby.players.reduce((acc,curr)=> (acc[curr]='',acc),{}) : {}
-    },[])
-
-    useEffect(() => {
-        setPlayers(lobby ? lobby.players : [])
-    }, [lobby])
+        let emptyChoices = lobby ?
+            lobby.players.reduce((acc,curr)=> (acc[curr]="", acc),{}) : {}
+        emptyChoices = {...emptyChoices, ...choices};
+        setChoices(emptyChoices);
+    },[]);
 
     function handleDecisionsSubmit() {
-        if (Object.values(decisions).indexOf("") >= 0) {
+        if (Object.values(choices).indexOf("") >= 0) {
             console.log("Make a decision for all players!")
             return
         }
-        console.log("Submitting Decisions: ", decisions)
-        addChoices(user, decisions, lobbyID)
+        console.log("Submitting Decisions: ", choices, lobbyID, user)
+        addChoices(user, choices, lobbyID)
     }
 
     function handleChoice(otherPlayer, choice) {
-        decisions[otherPlayer] = choice
+        const newChoices = {...choices};
+        newChoices[otherPlayer] = choice
+        setChoices(newChoices);
     }
 
     function getMyScore(player, opponent) {
@@ -47,26 +45,29 @@ const DecisionsList = () => {
     }
 
     function createDecisionRow (player) {
-        if(player == user) {
+        if(player === user) {
             return <br/>
         }
 
-        return <li key={player}>
-            vs. {player} {getMyScore(player)} {getOtherScore(player)} 
-            <button onClick={handleChoice(player, "COOPERATE")}>COOPERATE</button>
-            <button onClick={handleChoice(player, "CHEAT")}>CHEAT</button> 
-        </li>
+        return (
+            <li key={player}>
+                vs. {player} {getMyScore(player)} {getOtherScore(player)}
+                <button onClick={() => handleChoice(player, "COOPERATE")}>COOPERATE</button>
+                <button onClick={() => handleChoice(player, "CHEAT")}>CHEAT</button>
+            </li>
+        )
     }
-    
+
     return (
         <main className="player-list">
-            <h1>Round {roundNum}</h1>
+            <h1>Round {lobby?.rounds?.length ?? 1}</h1>
             <br/>
-            <h1>You ({user})</h1>
+            <h1>You are {user} with {lobby ? getPoints(lobby)[user] : "(Loading)"} Points</h1>
             <ul>
-                {players ? players.map(player => createDecisionRow(player)) : <br/>}
+                {lobby && lobby.players ?
+                    lobby.players.map(player => createDecisionRow(player)) : <br/>}
             </ul>
-            <button onClick={()=> handleDecisionsSubmit()}>Submit</button>
+            <button onClick={() => handleDecisionsSubmit()}>Submit</button>
         </main>
     );
 };

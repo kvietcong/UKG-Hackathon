@@ -21,8 +21,8 @@ const useLobby = (lobbyID, defaultRounds = 8) => {
         if (!exists) {
             seeExistAndCreate();
         } else {
-            const unsubscribe = onSnapshot(lobbyRef, lobby => {
-                setLobby(lobby.data());
+            const unsubscribe = onSnapshot(lobbyRef, newLobby => {
+                setLobby(newLobby.data());
             });
             return unsubscribe;
         }
