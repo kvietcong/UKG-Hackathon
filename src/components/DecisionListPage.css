@@ -1,0 +1,11 @@
+th, td {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.decisionButton {
+    font-size: 1rem;
+    background: none;
+    border: none;
+    border-radius: 1rem;
+}

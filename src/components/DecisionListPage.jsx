@@ -4,6 +4,8 @@ import useLobby from "../hooks/useLobby";
 import { addChoices } from "../utils/addChoices";
 import { useParams } from "react-router-dom";
 import { getPoints, getVsPoints } from "../utils/general";
+import "./Home.css"
+import "./DecisionListPage.css"
 
 /**
  * The Main Game Page where decisions of CHEAT/COOPERATE are made each round
@@ -49,25 +51,28 @@ const DecisionsList = () => {
             return <br/>
         }
 
-        return (
-            <li key={player}>
-                vs. {player} {getMyScore(player)} {getOtherScore(player)}
-                <button onClick={() => handleChoice(player, "COOPERATE")}>COOPERATE</button>
-                <button onClick={() => handleChoice(player, "CHEAT")}>CHEAT</button>
-            </li>
-        )
+        return <tr key={player}>
+            <td>{player}</td> 
+            <td>{getMyScore(player)}</td> 
+            <td>{getOtherScore(player)}</td>
+            <button class="decisionButton" onClick={() => handleChoice(player, "COOPERATE")}>🤝</button>
+            <button class="decisionButton" onClick={() => handleChoice(player, "CHEAT")}>🦹‍♂️</button> 
+        </tr>
     }
 
     return (
-        <main className="player-list">
-            <h1>Round {lobby?.rounds?.length ?? 1}</h1>
-            <br/>
-            <h1>You are {user} with {lobby ? getPoints(lobby)[user] : "(Loading)"} Points</h1>
-            <ul>
-                {lobby && lobby.players ?
-                    lobby.players.map(player => createDecisionRow(player)) : <br/>}
-            </ul>
-            <button onClick={() => handleDecisionsSubmit()}>Submit</button>
+        <main className="home">
+            <div class="card">
+                <h1 style={{margin: 0}}>Round {lobby?.rounds?.length ?? 1} 🔎</h1>
+                <h2>You are {user} with {lobby ? getPoints(lobby)[user] : "(Loading)"} Points</h2>
+                <table>
+                    <th>{/* Empty */}</th>
+                    <th><abbr title="Your Score">You</abbr></th>
+                    <th><abbr title="Their Score">Them</abbr></th>
+                    {lobby && lobby.players ? lobby.players.map(player => createDecisionRow(player)) : null}
+                </table>
+                <button onClick={()=> handleDecisionsSubmit()}>Submit</button>
+            </div>
         </main>
     );
 };
