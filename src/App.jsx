@@ -17,7 +17,7 @@ function App() {
                     <Switch>
                         <Route exact path="/ending" component={EndingScreen}/>
                         <Route exact path="/" component={Home}/>
-                        <Route exact path="/Test" component={Test}/>               
+                        <Route exact path="/Test" component={Test}/>
                         <Route exact path="/:lobbyID" component={NameSelectionPage}/>
                         <Route exact path="/:lobbyID/lobby" component={Lobby}/>
                         <Route exact path="/:lobbyID/game" component={DecisionsList}/>

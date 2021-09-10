@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from "react";
 import useLobby from "../hooks/useLobby";
 import { addChoices } from "../utils/addChoices";
 import { useParams } from "react-router-dom";
+import { getPoints, getVsPoints } from "../utils/general";
 
 let decisions = {}
 /**
@@ -12,6 +13,8 @@ const DecisionsList = () => {
     const {user, roundNum } = useContext(Context);
     const {lobbyID} = useParams()
     const [players, setPlayers] = useState([])
+    const [myChoices, setMyChoices] = useState({}) // {playerName: decisionTowardsPlayer}
+    //const [scores, setScores] = useState([])
     const lobby = useLobby("3Chx4mN0R7pglAKUtEh7")
 
     useEffect(()=>{
@@ -22,8 +25,6 @@ const DecisionsList = () => {
         setPlayers(lobby ? lobby.players : [])
     }, [lobby])
 
-    function getMyScore(player) {return 0;}
-    function getOtherScore(player) {return 0;}
     function handleDecisionsSubmit() {
         if (Object.values(decisions).indexOf("") >= 0) {
             console.log("Make a decision for all players!")
@@ -32,15 +33,20 @@ const DecisionsList = () => {
         console.log("Submitting Decisions: ", decisions)
         addChoices(user, decisions, lobbyID)
     }
+
     function handleChoice(otherPlayer, choice) {
         decisions[otherPlayer] = choice
     }
 
-    function createDecisionRow (player) {
+    function getMyScore(player, opponent) {
+        return (lobby ? getVsPoints(lobby, player, opponent) : 0)
+    }
 
-        //Currently "user" is "Default", trying to fix that
-        console.log(player)
-        console.log(user)
+    function getOtherScore(player, opponent) {
+        return (lobby ? getVsPoints(lobby, opponent, player) : 0)
+    }
+
+    function createDecisionRow (player) {
         if(player == user) {
             return <br/>
         }
@@ -52,6 +58,7 @@ const DecisionsList = () => {
             You plan to: {decisions[player]}
         </li>
     }
+    
     return (
         <main className="player-list">
             <h1>Round {roundNum}</h1>
