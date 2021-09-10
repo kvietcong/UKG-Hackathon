@@ -8,6 +8,7 @@ import SomeOtherPage from "./components/SomeOtherPage";
 import EndingScreen from "./components/EndingScreen"
 import Lobby from "./components/LobbyPage";
 import DecisionsList from "./components/DecisionListPage";
+import NameSelectionPage from "./components/NameSelectionPage";
 
 function App() {
     return (
@@ -18,7 +19,7 @@ function App() {
                         <Route exact path="/ending" component={EndingScreen}/>
                         <Route exact path="/" component={Home}/>
                         <Route exact path="/Test" component={Test}/>               
-                        <Route exact path="/:lobbyID" component={SomeOtherPage}/>
+                        <Route exact path="/:lobbyID" component={NameSelectionPage}/>
                         <Route exact path="/:lobbyID/lobby" component={Lobby}/>
                         <Route exact path="/:lobbyID/game" component={DecisionsList}/>
                     </Switch>
